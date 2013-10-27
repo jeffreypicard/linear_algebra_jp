@@ -1,0 +1,6 @@
+# executable
+linear_algebra
+# object files
+*.o
+# datafiles
+*.dat

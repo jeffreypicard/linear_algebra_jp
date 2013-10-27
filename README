@@ -1,0 +1,34 @@
+This was my attempt at an interactive linear algebra program. What resulted was
+basically an extremely small subset of MATLAB.
+
+The program can do some basic matrix operations (multiplication, addition and
+subtraction) and can even do those operations on single numbers (although they
+are stored internally as 1x1 matrices). The main purpose of the program was
+originally to test two common linear algebra algorithms. LU decompostion and QR
+(and it's more numerically stable cousin Modified Grahm Schmidt) decompostion.
+
+From a programming side this is somewhat interesting in that I implemented
+variables so you can do things like A = 1 and then A * 2, etc. I also
+implemented something that is more or less a parse tree so it can handle
+arbitrary legal expressions up to a certain length. Less interesting is that
+the syntax relies on spaces between every token. Also rather annoying is that
+odd matrix syntax I devised (probably on the fly) as I was writing this. The
+begginning and end of a matrix isn't specified (although it may be wrapped in
+paranthesis) and pipes ("|") are used to delimit rows.
+
+An example would be A = 1 1 | 1 1 This produces a 2x2 matrix of all ones.
+
+Lastly, in order to test the output of the algorithms I implemented reading
+matrices from files and writing matrices to files in a simple format that
+MATLAB supports.
+
+Write takes a file name and writes a variable currently in memory into it. 
+
+write file_name var 
+
+Read takes a file name and read its contents into a variable which may be new. 
+
+read file_name var
+
+Below is a link to the source code. Feel free to take a look or compile and try
+it out, a makefile is included. This code is released under the BSD license.
