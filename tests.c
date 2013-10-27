@@ -1,10 +1,13 @@
-/******************************************************************
+/*
  * tests.c
  *
- * Code file for the tests for the linear algebra program.
+ * Tests for linear_algebra_jp.
+ *
+ * TODO: Make all the values in results come out to 42 so I know
+ *       they all worked.
  *
  * Author: Jeffrey Picard
- *****************************************************************/
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,12 +19,12 @@
 #include "parse_tree.h"
 #include "tests.h"
 
-void run_tests()
+void run_tests( void )
 {
-  //matrix * z = create_matrix( 1000, 1000 );
-  //fill_random( z );
+  /*matrix * z = create_matrix( 1000, 1000 );*/
+  /*fill_random( z );*/
 
-  //multiplication tests
+  /*multiplication tests*/
 
   matrix * m = create_matrix( 2, 2 );
   matrix * n = create_matrix( 2, 2 );
@@ -69,8 +72,9 @@ void run_tests()
 
   print_matrix( ab );
 
-  //Equal tests
-  printf("------------------------------- Equal Tests -----------------------------------\n");
+  /*Equal tests*/
+  printf("------------------------------- Equal Tests "
+         "-----------------------------------\n");
 
   printf("Equal Test 1:\n");
   print_matrix( ab );
@@ -87,13 +91,14 @@ void run_tests()
   print_matrix( m );
   printf("Result 2: %d\n\n", equal( m, m ) );
 
-  //Transpose tests
-  printf("------------------------------- Transpose Tests -----------------------------------\n");
+  /*Transpose tests*/
+  printf("------------------------------- Transpose Tests "
+         "-----------------------------------\n");
 
-  matrix * ta = transpose( a );
-  matrix * tb = transpose( b );
-  matrix * tm = transpose( m );
-  matrix * tn = transpose( n );
+  matrix *ta = transpose( a );
+  matrix *tb = transpose( b );
+  matrix *tm = transpose( m );
+  matrix *tn = transpose( n );
 
   printf("Matrix a\n");
   print_matrix( a );
@@ -115,8 +120,9 @@ void run_tests()
   printf("Matrix n'\n");
   print_matrix( tn );
 
-  // Variable Tests
-  printf("------------------------------- Variable Tests -----------------------------------\n");
+  /* Variable Tests*/
+  printf("------------------------------- Variable Tests "
+         "-----------------------------------\n");
 
   add_var( "m", m );
   add_var( "n", n );
@@ -129,36 +135,37 @@ void run_tests()
   add_var( "ab", ab );
   add_var( "mn", mn );
 
-  matrix * temp;
+  matrix *temp;
 
-  if( (temp = search_vars("ab")) )
+  if ( (temp = search_vars("ab")) )
     print_matrix( temp );
-  if( (temp = search_vars("C")) )
+  if ( (temp = search_vars("C")) )
     print_matrix( temp );
-  if( (temp = search_vars("m")) )
+  if ( (temp = search_vars("m")) )
     print_matrix( temp );
 
   delete_var("ab");
 
-  if( (temp = search_vars("ab")) )
+  if ( (temp = search_vars("ab")) )
     print_matrix( temp );
-  if( (temp = search_vars("C")) )
+  if ( (temp = search_vars("C")) )
     print_matrix( temp );
-  if( (temp = search_vars("m")) )
+  if ( (temp = search_vars("m")) )
     print_matrix( temp );
 
-  // Variable Tests
-  printf("------------------------------- Function Tests -----------------------------------\n");
+  /* Variable Tests*/
+  printf("------------------------------- Function Tests "
+         "-----------------------------------\n");
 
-  matrix * zero1 = fill_zeros( create_matrix( 5, 5 ) );
+  matrix *zero1 = fill_zeros( create_matrix( 5, 5 ) );
   add_var( "zero1", zero1 );
   print_matrix( zero1 );
 
-  matrix * copy1 = copy_matrix( zero1 );
+  matrix *copy1 = copy_matrix( zero1 );
   add_var( "copy1", copy1 );
   print_matrix( copy1 );
 
-  matrix * lu_test_matrix = create_matrix( 2, 2 );
+  matrix *lu_test_matrix = create_matrix( 2, 2 );
   add_var( "lu_test_matrix", lu_test_matrix );
   lu_test_matrix->values[0][0] = 1;
   lu_test_matrix->values[0][1] = 2;
@@ -179,7 +186,7 @@ void run_tests()
 
   free( LUP );*/
 
-  matrix * U = lu( lu_test_matrix, 1 );
+  matrix *U = lu( lu_test_matrix, 1 );
   add_var( "U", U );
   print_matrix( U );
 
@@ -192,29 +199,32 @@ void run_tests()
   swap_rows( P, 0, 1 );
   print_matrix( P );*/
 
-  puts("------------------------------------------------ QR Tests -----------------------------------------");
+  puts("------------------------------------------------ QR Tests "
+       "-----------------------------------------");
 
-  matrix * qr_test_matrix = create_matrix( 2, 2 );
+  matrix *qr_test_matrix = create_matrix( 2, 2 );
   add_var( "qr_test_matrix", qr_test_matrix );
   qr_test_matrix->values[0][0] = 1;
   qr_test_matrix->values[0][1] = 2;
   qr_test_matrix->values[1][0] = 3;
   qr_test_matrix->values[1][1] = 4;
   
-  matrix * R = qr( qr_test_matrix );
+  matrix *R = qr( qr_test_matrix );
   add_var( "R", R );
   print_matrix( R );
 
-  puts("------------------------------------------------ Modified Gram Schimdt Tests -----------------------------------------");
+  puts("------------------------------------------------ "
+       "Modified Gram Schimdt Tests "
+       "-----------------------------------------");
 
-  matrix * mgs_test_matrix = create_matrix( 2, 2 );
+  matrix *mgs_test_matrix = create_matrix( 2, 2 );
   add_var( "mgs_test_matrix", mgs_test_matrix );
   mgs_test_matrix->values[0][0] = 1;
   mgs_test_matrix->values[0][1] = 2;
   mgs_test_matrix->values[1][0] = 3;
   mgs_test_matrix->values[1][1] = 4;
   
-  matrix * Q = mgs( mgs_test_matrix );
+  matrix *Q = mgs( mgs_test_matrix );
   add_var( "Q", Q );
   print_matrix( Q );
 }

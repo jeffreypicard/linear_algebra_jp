@@ -1,4 +1,4 @@
-/************************************************************************
+/*
  * linear_algebra.c
  *
  * This program implements some linear algebra algorithms.
@@ -29,12 +29,8 @@
  * mgs ( matrix ) - does modified gram schmidt decompostion on the matrix.
  *                  returns Q.
  *
- * Compilation command:
- *
- * gcc -std=c99 -g -Wall -lm -o linear_algebra linear_algebra.c matrix.c matrix_ops.c prompt.c parse_tree.c var_list.c tests.c file_rw.c
- *
  * Author: Jeffrey Picard
- ***********************************************************************/
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -54,16 +50,14 @@
 #include "tests.h"
 #include "file_rw.h"
 
-/****************************************************** main ***********************************************************/
-
-int main()
+int 
+main( void )
 {
   print_welcome();
 
-  while( 1 )
-  {
+  while ( 1 ) {
     print_prompt();
-    if( !get_input() )
+    if ( !get_input() )
       break;
   }
  

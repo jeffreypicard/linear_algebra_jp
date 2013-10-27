@@ -1,14 +1,14 @@
-/******************************************************************
+/*
  * tests.h
  *
  * Header file for tests.c
  *
  * Author: Jeffrey Picard
- ****************************************************************/
+ */
 
-#ifndef TESTS_H
-#define TESTS_H
+#ifndef _TESTS_H
+#define _TESTS_H
 
 void run_tests();
 
-#endif
+#endif /* _TESTS_H */

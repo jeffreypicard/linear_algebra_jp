@@ -1,40 +1,57 @@
-CC = gcc 
-DEPS = file_rw.h matrix.h matrix_ops.h parse_tree.h prompt.h var_list.h tests.h
-OBJS = linear_algebra.o file_rw.o matrix.o matrix_ops.o parse_tree.o prompt.o var_list.o tests.o
-LIBS = -lm
-DEBUG = -g
-CSTAND = -std=c99
-CFLAGS = $(CSTAND) -Wall -c $(DEBUG)
-LFAGS = -Wall $(DEBUG)
+# Makefile taken from suckless style.
 
-linear_algebra: $(OBJS)
-	$(CC) $(LFAGS) $(OBJS) -o linear_algebra $(LIBS)
+include config.mk
 
-linear_algebra.o: $(DEPS)
-	$(CC) $(CFLAGS) linear_algebra.c
+HEADERS =\
+	file_rw.h\
+	matrix.h\
+	matrix_ops.h\
+	parse_tree.h\
+	prompt.h\
+	var_list.h\
+	tests.h
 
-file_rw.o: $(DEPS)
-	$(CC) $(CFLAGS) file_rw.c
+SRC =\
+	linear_algebra.c\
+	file_rw.c\
+	matrix.c\
+	matrix_ops.c\
+	parse_tree.c\
+	prompt.c\
+	var_list.c\
+	tests.c
 
-matrix.o: $(DEPS)
-	$(CC) $(CFLAGS) matrix.c
+OBJ = ${SRC:.c=.o}
 
-matrix_ops.o: $(DEPS)
-	$(CC) $(CFLAGS) matrix_ops.c
+all: options linear_algebra
 
-parse_tree.o: $(DEPS)
-	$(CC) $(CFLAGS) parse_tree.c
+options:
+	@echo determinant build options:
+	@echo "CFLAGS   = ${CFLAGS}"
+	@echo "LDFLAGS  = ${LDFLAGS}"
+	@echo "CC       = ${CC}"
+	@echo "LD       = ${LD}"
 
-prompt.o: $(DEPS)
-	$(CC) $(CFLAGS) prompt.c
+%.o: %.c
+	@echo CC $<
+	@${CC} -c ${CFLAGS} $<
 
-var_list.o: $(DEPS)
-	$(CC) $(CFLAGS) var_list.c
+${OBJ}: config.mk
 
-tests.o: $(DEPS)
-	$(CC) $(CFLAGS) tests.c
-
-.PHONY: clean
+linear_algebra: ${OBJ}
+	@echo LD $@
+	@${LD} -o $@ ${OBJ} ${LDFLAGS}
 
 clean:
-	-rm -rf *.o linear_algebra
+	@echo cleaning
+	@rm -f linear_algebra ${OBJ} ${PROG_NAME}-${VERSION}.tar.gz
+
+dist: clean
+	@echo creating dist tarball
+	@mkdir -p ${PROG_NAME}-${VERSION}
+	@cp -R Makefile LICENSE README config.mk ${SRC} ${HEADERS} ${PROG_NAME}-${VERSION}
+	@tar -cf ${PROG_NAME}-${VERSION}.tar ${PROG_NAME}-${VERSION}
+	@gzip ${PROG_NAME}-${VERSION}.tar
+	@rm -rf ${PROG_NAME}-${VERSION}
+
+.PHONY: all options clean dist

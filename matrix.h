@@ -1,12 +1,12 @@
-/***************************************************************
+/*
  * matrix.h
  *
  * Header file for matrix.c
  *
  * Author: Jeffrey Picard
- **************************************************************/
-#ifndef MATRIX_H
-#define MATRIX_H
+ */
+#ifndef _MATRIX_H
+#define _MATRIX_H
 
 typedef struct matrix_struct
 {
@@ -15,8 +15,7 @@ typedef struct matrix_struct
   double ** values;
 } matrix;
 
-matrix * create_matrix( int, int );
-
+matrix *create_matrix( int, int );
 void delete_matrix( matrix * );
 
-#endif
+#endif /* _MATRIX_H */
